@@ -11,13 +11,17 @@
 #
 # Nao altera nada do LibreChat: so prepara o sistema de arquivos e entrega o
 # processo para o start normal da aplicacao.
-set -eux
+set -eu
 
 DISK=/data
 
-echo "[render-start] usuario: $(id)"
-echo "[render-start] estado de $DISK:"
-ls -ld "$DISK" || echo "[render-start] ATENCAO: $DISK nao existe"
+echo "[render-start] usuario: $(id -un) ($(id -u):$(id -g))"
+ls -ld "$DISK" || {
+  echo "[render-start] ERRO: $DISK nao existe."
+  echo "[render-start] O disco persistente nao esta montado. Abortando em vez de"
+  echo "[render-start] gravar em disco efemero e perder os arquivos no proximo deploy."
+  exit 1
+}
 
 for d in images uploads appdata; do
   mkdir -p "$DISK/$d"
@@ -39,7 +43,10 @@ link "$DISK/images"  /app/client/public/images
 link "$DISK/uploads" /app/uploads
 link "$DISK/appdata" /app/data
 
-echo "[render-start] symlinks prontos:"
-ls -ld /app/client/public/images /app/uploads /app/data
+# Inventario do disco a cada boot. Se estes numeros zerarem de um deploy para o
+# outro, o disco deixou de ser montado e os arquivos dos usuarios sumiram.
+echo "[render-start] disco: $(find "$DISK/uploads" -type f 2>/dev/null | wc -l) arquivo(s) em uploads," \
+     "$(find "$DISK/images" -type f 2>/dev/null | wc -l) em images," \
+     "ocupando $(du -sh "$DISK" 2>/dev/null | cut -f1)"
 
 exec npm run backend
