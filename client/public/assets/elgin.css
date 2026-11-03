@@ -44,7 +44,11 @@ body:has(.w-authPageWidth) {
   font-family: 'Montserrat', -apple-system, 'Segoe UI', Roboto, Arial, sans-serif !important;
 }
 
-body:has(.w-authPageWidth) .bg-surface-primary {
+/* So o container raiz do AuthLayout, que ocupa a tela inteira. A regra
+ * anterior era `.bg-surface-primary` solta e tambem acertava o cartao e os
+ * campos, que carregam a mesma classe — os dois ficavam transparentes e a
+ * regra do cartao abaixo perdia por especificidade, mesmo com !important. */
+body:has(.w-authPageWidth) .min-h-screen.bg-surface-primary {
   background-color: transparent !important;
 }
 
@@ -68,11 +72,25 @@ body:has(.w-authPageWidth) .bg-surface-primary {
   letter-spacing: -0.01em;
 }
 
+/* O cartao e branco mesmo no tema escuro, entao texto, rotulos e campos
+ * precisam ser forcados para a versao clara — senao ficam claro-no-claro
+ * para quem usa o app em dark mode. */
+.w-authPageWidth,
+.w-authPageWidth label,
+.w-authPageWidth p,
+.w-authPageWidth span {
+  color: #14171a !important;
+}
+
 .w-authPageWidth input {
   border-radius: 8px !important;
-  border-color: #e7ecf3 !important;
+  border: 1px solid #e7ecf3 !important;
   background-color: #fff !important;
   color: #14171a !important;
+}
+
+.w-authPageWidth input::placeholder {
+  color: #8a939d !important;
 }
 
 .w-authPageWidth input:focus {
