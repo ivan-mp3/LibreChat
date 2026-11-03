@@ -117,6 +117,15 @@ body:has(.w-authPageWidth) .min-h-screen.bg-surface-primary {
   color: #0a6fc2 !important;
 }
 
+/* Seletor de tema (AuthLayout.tsx -> <ThemeSelector/>), no canto inferior
+ * esquerdo. A tela de login e sempre clara, entao o controle so confundiria:
+ * trocar para escuro nao mudava o cartao, que e branco a forca.
+ * Conferido no DOM: .absolute.bottom-0.left-0 casa com o container e com o
+ * interno; esconder o de fora leva os dois botoes junto. */
+body:has(.w-authPageWidth) .absolute.bottom-0.left-0 {
+  display: none !important;
+}
+
 /* O logo fica acima do cartao (AuthLayout.tsx, altura h-10). O arquivo
  * assets/logo.svg foi trocado pela marca oficial da Elgin: o quadro do meio
  * do GIF animado de content.elgin.com.br, embutido em base64 porque SVG
