@@ -1,0 +1,22 @@
+/* Cores da marca Elgin.
+ *
+ * Por que um CSS em vez de configuracao: na v0.8.8 nao existe interface.theme
+ * (so a partir do dev), e REACT_APP_THEME_* esta no envPrefix do Vite mas NAO
+ * e lido por ninguem — o README do pacote de tema ensina a escrever um
+ * carregador, que o LibreChat nao traz. Verificado no CSS compilado: definir
+ * as variaveis nao mudou nada.
+ *
+ * O botao de enviar usa --surface-submit, que por padrao aponta para
+ * --green-700 (4 120 87). O !important dispensa depender da ordem em que o
+ * Vite injeta as folhas de estilo.
+ */
+:root,
+:root[data-theme='light'],
+:root[data-theme='dark'],
+.dark,
+[data-theme] {
+  /* #0099ff — azul da Elgin */
+  --surface-submit: 0 153 255 !important;
+  /* #0a6fc2 — o --blue-ink do app de copy */
+  --surface-submit-hover: 10 111 194 !important;
+}
