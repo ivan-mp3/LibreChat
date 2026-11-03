@@ -9,9 +9,10 @@ version: 1.3.17
 cache: true
 
 interface:
-  # Com modelSpecs presente, o seletor de modelos some a menos que seja
-  # explicitamente ligado aqui.
-  modelSelect: true
+  # Seletor escondido. Com enforce: true nenhum outro modelo e utilizavel,
+  # entao o seletor so mostrava opcoes que nao funcionam (OpenAI, My Agents).
+  # E configuracao global: vale para admin tambem.
+  modelSelect: false
 
 modelSpecs:
   # enforce: so os specs desta lista ficam disponiveis. Como ha um unico spec,
@@ -25,6 +26,7 @@ modelSpecs:
       default: true
       description: Cria PDPs da Elgin a partir do briefing e da ficha tecnica
       showOnLanding: true
+      iconURL: /assets/elgin-e.png
       preset:
         # O endpoint e declarado de proposito. A documentacao diz que ele e
         # inferido a partir do agent_id, e o servidor realmente infere
