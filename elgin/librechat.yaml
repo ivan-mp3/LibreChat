@@ -55,3 +55,28 @@ webSearch:
   # Menos paginas, menos texto despejado. O padrao e 8.
   keenableSearchOptions:
     maxResults: 4
+
+# Base de Conhecimento Elgin, publicada pelo app antigo (elgin-copy).
+#
+# Definido aqui, e nao criado por usuario, para aparecer para todo mundo sem
+# depender de compartilhamento — o admin ja tinha criado uma copia pessoal,
+# que pode ser removida depois que esta entrar.
+#
+# O servidor faz descoberta de OAuth e registro dinamico de cliente, entao
+# nao e preciso declarar authorization_url, token_url, client_id nem secret:
+# o LibreChat se registra sozinho.
+#
+# ATENCAO: os metadados do servidor declaram
+# grant_types_supported: ["authorization_code", "refresh_token"] — nao ha
+# client_credentials. Isso significa que NAO existe credencial de servico:
+# cada pessoa autentica a sua, uma vez, com a senha de equipe.
+mcpServers:
+  base-elgin:
+    type: streamable-http
+    url: https://elgin-copy.onrender.com/mcp
+    # O nome tem de bater com o que o admin ja conectou: os tokens ficam
+    # gravados com o identificador "mcp:base-elgin".
+    title: Base Elgin
+    # Nao inicializa no boot: o servidor exige autenticacao por usuario, e
+    # tentar conectar sem token so geraria erro no log a cada deploy.
+    startup: false
