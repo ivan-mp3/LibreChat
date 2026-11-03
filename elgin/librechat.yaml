@@ -26,8 +26,13 @@ modelSpecs:
       description: Cria PDPs da Elgin a partir do briefing e da ficha tecnica
       showOnLanding: true
       preset:
-        # Agente criado em 03/11/2026. Com agent_id preenchido, o endpoint
-        # "agents" e inferido e nao precisa ser declarado.
+        # O endpoint e declarado de proposito. A documentacao diz que ele e
+        # inferido a partir do agent_id, e o servidor realmente infere
+        # (resolveModelSpecEndpoint). Mas o cliente recebe o spec sem o campo
+        # e acaba nao mandando endpoint nenhum na requisicao, entao a
+        # comparacao undefined !== "agents" derruba a conversa com
+        # "Model spec mismatch". Declarar resolve dos dois lados.
+        endpoint: agents
         agent_id: agent_JSwSut8mLi55_cX3gjU45
 
 webSearch:
