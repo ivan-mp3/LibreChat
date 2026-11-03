@@ -126,7 +126,27 @@ body:has(.w-authPageWidth) .absolute.bottom-0.left-0 {
   display: none !important;
 }
 
-/* O logo fica acima do cartao (AuthLayout.tsx, altura h-10). O arquivo
- * assets/logo.svg foi trocado pela marca oficial da Elgin: o quadro do meio
- * do GIF animado de content.elgin.com.br, embutido em base64 porque SVG
- * carregado via <img> nao busca recurso externo. */
+/* ------------------------------------------------------------------ *
+ * 3. Logo
+ *
+ * O AuthLayout tem <img src="assets/logo.svg"> fixo no componente, sem
+ * versao na URL. Como o Render serve os assets com
+ * Cache-Control: max-age=172800 (48 h), quem ja abriu o site continua vendo
+ * a pena antiga por dois dias, por mais que o arquivo mude no servidor.
+ *
+ * Em vez de pedir Ctrl+Shift+R para 15 pessoas, a imagem some e o logo vira
+ * fundo do proprio container, apontando para um NOME NOVO — que nenhum
+ * navegador tem em cache. Para trocar o logo de novo, basta subir o numero
+ * do arquivo e desta regra.
+ * ------------------------------------------------------------------ */
+body:has(.w-authPageWidth) .mt-6.h-10.w-full img {
+  display: none !important;
+}
+
+body:has(.w-authPageWidth) .mt-6.h-10.w-full {
+  background-image: url('/assets/elgin-logo-v2.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  /* o container traz bg-cover, que cortaria a marca */
+  background-size: contain !important;
+}
