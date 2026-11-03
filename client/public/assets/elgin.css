@@ -76,10 +76,25 @@ body:has(.w-authPageWidth) .min-h-screen.bg-surface-primary {
  * precisam ser forcados para a versao clara — senao ficam claro-no-claro
  * para quem usa o app em dark mode. */
 .w-authPageWidth,
-.w-authPageWidth label,
 .w-authPageWidth p,
 .w-authPageWidth span {
   color: #14171a !important;
+}
+
+/* Qualquer coisa dentro do cartao que use bg-surface-primary: no tema escuro
+ * essa cor e rgb(13,13,13). Dentro de um cartao branco, sempre branco. */
+.w-authPageWidth .bg-surface-primary {
+  background-color: #fff !important;
+}
+
+/* O rotulo flutuante fica POR CIMA do campo (absolute, z-10) e carrega
+ * bg-surface-primary para mascarar a borda quando sobe. No tema escuro isso
+ * virava uma tarja preta exatamente atras do texto — o que parecia um campo
+ * preto, mas era o rotulo. Com o campo vazio ele fica centralizado e faz as
+ * vezes de placeholder, entao a cor tem de ser a de texto apagado. */
+.w-authPageWidth label {
+  background-color: #fff !important;
+  color: #5b6672 !important;
 }
 
 /* Os campos carregam a classe .webkit-dark-styles, que o LibreChat usa para
