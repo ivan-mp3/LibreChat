@@ -24,7 +24,13 @@ modelSpecs:
     - name: pdp-elgin
       label: PDP Elgin
       default: true
-      description: Cria PDPs da Elgin a partir do briefing e da ficha tecnica
+      # A descricao aparece na tela inicial de cada conversa nova
+      # (showOnLanding), que e exatamente quando a pessoa vai anexar o
+      # briefing. Por isso o aviso de formato mora aqui.
+      description: >-
+        Cria PDPs da Elgin a partir do briefing e da ficha tecnica.
+        Anexe PDF, Word, Excel ou texto — PowerPoint nao e lido:
+        exporte para PDF antes.
       showOnLanding: true
       iconURL: /assets/elgin-e.png
       preset:

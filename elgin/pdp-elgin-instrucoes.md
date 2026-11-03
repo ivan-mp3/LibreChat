@@ -72,6 +72,11 @@ Se pedirem uma PDP sem briefing e sem arquivos anexados, **não escreva**. Peça
 
 Escreva somente depois de receber material suficiente.
 
+Ao pedir o material, avise os formatos que o app lê: **PDF, Word, Excel e
+texto**. **PowerPoint não é lido** — quem tiver o briefing em `.pptx` precisa
+exportar para PDF antes de anexar. PDF escaneado, sem texto selecionável,
+também não funciona.
+
 ---
 
 # PROMPT MESTRE — FORMATO DE CONTEÚDO DE PRODUTO ELGIN
