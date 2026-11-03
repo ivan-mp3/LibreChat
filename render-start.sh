@@ -49,4 +49,11 @@ echo "[render-start] disco: $(find "$DISK/uploads" -type f 2>/dev/null | wc -l) 
      "$(find "$DISK/images" -type f 2>/dev/null | wc -l) em images," \
      "ocupando $(du -sh "$DISK" 2>/dev/null | cut -f1)"
 
+# O Render descarta variaveis de ambiente de valor vazio, e o LibreChat so
+# esconde o rodape quando CUSTOM_FOOTER existe COMO string vazia
+# (routes/config.js testa `typeof === "string"`, e Footer.tsx cai no texto
+# padrao quando o campo nao vem). Esta linha garante a string vazia sem
+# atropelar um valor que alguem venha a definir no painel.
+export CUSTOM_FOOTER="${CUSTOM_FOOTER-}"
+
 exec npm run backend
