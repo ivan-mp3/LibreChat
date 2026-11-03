@@ -50,3 +50,8 @@ webSearch:
   searchProvider: keenable
   scraperProvider: keenable
   rerankerType: none
+  # Sem reranker, o que o scraper trouxer vai inteiro para o modelo — e foi
+  # assim que uma unica busca somou 58 mil tokens no orcamento de contexto.
+  # Menos paginas, menos texto despejado. O padrao e 8.
+  keenableSearchOptions:
+    maxResults: 4
