@@ -1,0 +1,39 @@
+# Configuracao do LibreChat da Elgin.
+#
+# Este arquivo NAO fica na raiz de proposito: o .dockerignore do LibreChat
+# ignora "librechat*" na raiz, entao um librechat.yaml ali nunca entraria na
+# imagem Docker e sumiria em silencio. Por isso ele vive em elgin/ e o servico
+# do Render aponta CONFIG_PATH=/app/elgin/librechat.yaml.
+
+version: 1.3.17
+cache: true
+
+interface:
+  # Com modelSpecs presente, o seletor de modelos some a menos que seja
+  # explicitamente ligado aqui.
+  modelSelect: true
+
+modelSpecs:
+  # enforce: so os specs desta lista ficam disponiveis. Como ha um unico spec,
+  # o seletor do topo mostra apenas o PDP Elgin. Para liberar outros modelos
+  # depois, basta trocar para false.
+  enforce: true
+  prioritize: true
+  list:
+    - name: pdp-elgin
+      label: PDP Elgin
+      default: true
+      description: Cria PDPs da Elgin a partir do briefing e da ficha tecnica
+      showOnLanding: true
+      preset:
+        # Agente criado em 03/11/2026. Com agent_id preenchido, o endpoint
+        # "agents" e inferido e nao precisa ser declarado.
+        agent_id: agent_JSwSut8mLi55_cX3gjU45
+
+webSearch:
+  # Keenable funciona sem chave de API; rerankerType "none" evita exigir uma
+  # chave de Jina ou Cohere. Trocar por serper ou tavily e so mudar estas
+  # tres linhas e adicionar a chave correspondente no Render.
+  searchProvider: keenable
+  scraperProvider: keenable
+  rerankerType: none
