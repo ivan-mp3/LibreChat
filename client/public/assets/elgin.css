@@ -1,22 +1,105 @@
-/* Cores da marca Elgin.
+/* Identidade visual Elgin sobre o LibreChat v0.8.8.
  *
- * Por que um CSS em vez de configuracao: na v0.8.8 nao existe interface.theme
- * (so a partir do dev), e REACT_APP_THEME_* esta no envPrefix do Vite mas NAO
- * e lido por ninguem — o README do pacote de tema ensina a escrever um
- * carregador, que o LibreChat nao traz. Verificado no CSS compilado: definir
- * as variaveis nao mudou nada.
+ * Por que um CSS em vez de configuracao: nesta versao nao existe
+ * interface.theme (so a partir do dev), e REACT_APP_THEME_* esta no envPrefix
+ * do Vite mas NAO e lido por ninguem — o README do pacote de tema ensina a
+ * *escrever* um carregador, que o LibreChat nao traz pronto. Verificado no CSS
+ * compilado em producao: definir as variaveis nao mudou nada.
  *
- * O botao de enviar usa --surface-submit, que por padrao aponta para
- * --green-700 (4 120 87). O !important dispensa depender da ordem em que o
- * Vite injeta as folhas de estilo.
+ * Tokens da marca, tirados de copy_app/static/style.css do app antigo:
+ *   azul #0099ff | azul escuro #0a6fc2 | fundo #f2f5f9
+ *   linha #e7ecf3 | tinta #14171a | fonte Montserrat
  */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+/* ------------------------------------------------------------------ *
+ * 1. Botao de enviar mensagem
+ *
+ * Usa --surface-submit, que por padrao aponta para --green-700 (4 120 87).
+ * O !important dispensa depender da ordem de injecao das folhas do Vite.
+ * ------------------------------------------------------------------ */
 :root,
 :root[data-theme='light'],
 :root[data-theme='dark'],
 .dark,
 [data-theme] {
-  /* #0099ff — azul da Elgin */
   --surface-submit: 0 153 255 !important;
-  /* #0a6fc2 — o --blue-ink do app de copy */
   --surface-submit-hover: 10 111 194 !important;
 }
+
+/* ------------------------------------------------------------------ *
+ * 2. Telas de autenticacao
+ *
+ * Gancho: .w-authPageWidth e classe propria do LibreChat, usada so no cartao
+ * dessas telas (AuthLayout.tsx). Nao existe no resto do app, entao tudo aqui
+ * fica restrito ao login e nao encosta no chat.
+ * ------------------------------------------------------------------ */
+
+/* O LibreChat pinta a pagina e o cartao com a mesma cor (bg-surface-primary),
+ * o que deixa a tela chapada. Aqui a pagina recebe o cinza-azulado da Elgin e
+ * o cartao fica branco por cima, como no app de copy. */
+body:has(.w-authPageWidth) {
+  background-color: #f2f5f9 !important;
+  font-family: 'Montserrat', -apple-system, 'Segoe UI', Roboto, Arial, sans-serif !important;
+}
+
+body:has(.w-authPageWidth) .bg-surface-primary {
+  background-color: transparent !important;
+}
+
+.w-authPageWidth {
+  background-color: #fff !important;
+  border: 1px solid #e7ecf3 !important;
+  border-radius: 12px !important;
+  box-shadow:
+    0 1px 2px rgba(20, 23, 26, 0.04),
+    0 6px 20px rgba(20, 23, 26, 0.06) !important;
+  padding: 30px 30px 26px !important;
+}
+
+/* Titulo menor, mais pesado e a esquerda, como no app de copy */
+.w-authPageWidth h1 {
+  text-align: left !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  color: #14171a !important;
+  margin-bottom: 18px !important;
+  letter-spacing: -0.01em;
+}
+
+.w-authPageWidth input {
+  border-radius: 8px !important;
+  border-color: #e7ecf3 !important;
+  background-color: #fff !important;
+  color: #14171a !important;
+}
+
+.w-authPageWidth input:focus {
+  border-color: #0099ff !important;
+  box-shadow: 0 0 0 3px #e9f5ff !important;
+  outline: none !important;
+}
+
+.w-authPageWidth button[type='submit'] {
+  background-color: #0099ff !important;
+  color: #fff !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight: 700 !important;
+  height: 46px !important;
+  transition: background-color 0.15s ease;
+}
+
+.w-authPageWidth button[type='submit']:hover:not(:disabled) {
+  background-color: #0a6fc2 !important;
+}
+
+.w-authPageWidth a {
+  color: #0a6fc2 !important;
+}
+
+/* O logo fica acima do cartao (AuthLayout.tsx, altura h-10). O arquivo
+ * assets/logo.svg foi trocado pela marca oficial da Elgin: o quadro do meio
+ * do GIF animado de content.elgin.com.br, embutido em base64 porque SVG
+ * carregado via <img> nao busca recurso externo. */
